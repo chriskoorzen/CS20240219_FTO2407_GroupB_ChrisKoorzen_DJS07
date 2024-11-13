@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import domtoimage from 'dom-to-image'
 import MemeText from './memeText.jsx'
 
 
@@ -48,9 +49,19 @@ export default function Meme() {
         }
     }
 
+    function saveImage(){
+        domtoimage.toJpeg(memeBox.current, { quality: 0.95 })   // Use domtoimage to create image from DOM node
+        .then((dataUrl) => {
+            const link = document.createElement('a');
+            link.download = 'my-new-meme.jpeg';
+            link.href = dataUrl;
+            link.click();                                       // Auto download
+        })
+    }
+
     return (
         <main className="w-4/5 mx-auto">
-            <div className="grid grid-rows-2 gap-5 my-8">
+            <div className="grid grid-rows-3 gap-5 my-8">
                 
                 <label>Meme Text
                     <input
@@ -61,6 +72,15 @@ export default function Meme() {
                         onKeyUp={readUserInputText}
                     />
                 </label>
+
+                <div className="flex flex-row justify-end rounded-lg border-2 border-gray-300 w-full p-2">
+                    <button 
+                        className="rounded-lg px-2 bg-green-500 text-white font-bold active:border-2 border-black active:shadow-lg"
+                        onClick={saveImage}
+                    >
+                        Save Meme
+                    </button>
+                </div>
 
                 <button
                     className="app-gradient p-4 rounded-lg text-white font-bold active:border-2 border-black active:shadow-lg"
