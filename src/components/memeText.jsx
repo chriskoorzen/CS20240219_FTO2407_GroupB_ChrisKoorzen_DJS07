@@ -1,11 +1,12 @@
 import { useState, useRef } from "react"
 
 
-export default function MemeText({text, deleteFunction}){
-    const [position, setPosition] = useState({x:5, y:5})    // Default position at top left
-    const deleteButton = useRef(null)                       // reference to DOM element to hide/show
+export default function MemeText({text, deleteFunction, getBoundary}){
+    const offSet = 5
+    const [position, setPosition] = useState({x:offSet, y:offSet})  // Default position at top left
+    const deleteButton = useRef(null)                               // reference to DOM element to hide/show
 
-    let startX, startY, endX, endY                          // Intermediary values to track movement
+    let startX, startY, endX, endY                                  // Intermediary values to track movement
 
     function handleDragStart(event){
         startX = event.screenX
@@ -16,9 +17,26 @@ export default function MemeText({text, deleteFunction}){
         endX = event.screenX
         endY = event.screenY
 
+        // Logic to keep text within Meme picture bounds
+        let boundary = getBoundary()
+        let newX = position.x + (endX - startX)
+        let newY = position.y + (endY - startY)
+
+        if (newX < offSet){
+            newX = offSet
+        } else if ((newX + event.target.clientWidth) > boundary.x){
+            newX = boundary.x - event.target.clientWidth - offSet
+        }
+
+        if (newY < offSet){
+            newY = offSet
+        } else if ((newY + event.target.clientHeight) > boundary.y){
+            newY = boundary.y - event.target.clientHeight - offSet
+        }
+
         const newPosition = {
-            x: position.x + (endX - startX),
-            y: position.y + (endY - startY),
+            x: newX,
+            y: newY,
         }
 
         setPosition(newPosition)

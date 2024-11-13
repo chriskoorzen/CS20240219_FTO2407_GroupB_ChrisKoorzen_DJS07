@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import MemeText from './memeText.jsx'
 
 
@@ -6,8 +6,9 @@ export default function Meme() {
     const [image, setImage] = useState(0)                       // The default image number
     const [memeData, setMemeData] = useState([{url:""}])        // The most basic object expected by <img src>
     const [textData, setTextData] = useState([])                // Meme texts
+    const memeBox = useRef(null)                                // MemeImage wrapper div
 
-    useEffect(()=>{                                             // Retrieve meme data from remote source
+    useEffect(() => {                                           // Retrieve meme data from remote source
         fetch("https://api.imgflip.com/get_memes")
             .then(res => res.json())
             .then(data => {
@@ -39,6 +40,14 @@ export default function Meme() {
         setTextData(newTextData)                                                // Update
     }
 
+    function getBoundary(){
+        const box = memeBox.current.getBoundingClientRect()     // Method to pass boundary prop to children
+        return {
+            x: box.width,
+            y: box.height
+        }
+    }
+
     return (
         <main className="w-4/5 mx-auto">
             <div className="grid grid-rows-2 gap-5 my-8">
@@ -46,7 +55,7 @@ export default function Meme() {
                 <label>Meme Text
                     <input
                         type="text"
-                        placeholder="Top Text"
+                        placeholder="Meme Text"
                         className="p-2 rounded-lg border-2 block w-full"
 
                         onKeyUp={readUserInputText}
@@ -61,7 +70,10 @@ export default function Meme() {
                 </button>
             </div>
 
-            <div className="relative w-fit h-fit">
+            <div 
+                className="relative w-fit h-fit"
+                ref={memeBox}
+            >
                 <img 
                     className="object-contain border-2 mx-auto"
                     key={image} 
@@ -75,6 +87,7 @@ export default function Meme() {
                                 key={memeText}
                                 text={memeText}
                                 deleteFunction={deleteMemeText}
+                                getBoundary={getBoundary}
                             />
                         )
                     }
