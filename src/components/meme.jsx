@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
+import MemeText from './memeText.jsx'
 
 
 export default function Meme() {
     const [image, setImage] = useState(0)                       // The default image number
     const [memeData, setMemeData] = useState([{url:""}])        // The most basic object expected by <img src>
+    const [textData, setTextData] = useState([])                // Meme texts
 
     useEffect(()=>{                                             // Retrieve meme data from remote source
         fetch("https://api.imgflip.com/get_memes")
@@ -25,36 +27,52 @@ export default function Meme() {
         setImage(randomImage)               // Set to new image (trigger re-render)
     }
 
+    function readUserInputText(event){
+        if(event.key === "Enter"){
+            const memeText = event.target.value         // Get independent reference
+            setTextData(data => [...data, memeText])    // Update
+            event.target.value = ""                     // Reset input
+        }
+    }
 
     return (
-        <main className="w-4/5 mx-auto mt-8">
-            <div className="grid grid-rows-2 grid-cols-2 gap-5">
+        <main className="w-4/5 mx-auto">
+            <div className="grid grid-rows-2 gap-5 my-8">
                 
-                <label>Top Text
+                <label>Meme Text
                     <input
                         type="text"
                         placeholder="Top Text"
                         className="p-2 rounded-lg border-2 block w-full"
-                    />
-                </label>
 
-                <label>Bottom Text
-                    <input
-                        type="text"
-                        placeholder="Bottom Text"
-                        className="p-2 rounded-lg border-2 block w-full"
+                        onKeyUp={readUserInputText}
                     />
                 </label>
 
                 <button
                     onClick={generateMeme}
-                    className="col-span-2 app-gradient p-4 rounded-lg text-white font-bold active:border-2 border-black active:shadow-lg">
+                    className="app-gradient p-4 rounded-lg text-white font-bold active:border-2 border-black active:shadow-lg">
                 
                     Get a new meme image 🖼
                 </button>
             </div>
 
-            <img key={image} src={memeData[image].url}/>
+            <div
+                className="relative size-64"
+                style={{ 
+                    backgroundImage: `url("${memeData[image].url}")` 
+                }}
+            >
+                {/* <img key={image} src={memeData[image].url}/> */}
+                {textData.map(
+                    memeText => {
+                        return (
+                            <MemeText key={memeText} text={memeText} />
+                        )
+                    }
+                )}
+            </div>
+
         </main>
     )
 }
