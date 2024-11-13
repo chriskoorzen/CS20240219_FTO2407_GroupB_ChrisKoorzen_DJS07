@@ -17,7 +17,6 @@ export default function Meme() {
 
 
     function generateMeme(){
-
         let randomImage = image             // Set to current image number
 
         while (randomImage === image){      // Make sure random does not return the same image number
@@ -33,6 +32,11 @@ export default function Meme() {
             setTextData(data => [...data, memeText])    // Update
             event.target.value = ""                     // Reset input
         }
+    }
+
+    function deleteMemeText(text){
+        const newTextData =  textData.filter(memeText => !(memeText===text))    // Filter out this text
+        setTextData(newTextData)                                                // Update
     }
 
     return (
@@ -67,7 +71,11 @@ export default function Meme() {
                 {textData.map(
                     memeText => {
                         return (
-                            <MemeText key={memeText} text={memeText} />
+                            <MemeText 
+                                key={memeText}
+                                text={memeText}
+                                deleteFunction={deleteMemeText}
+                            />
                         )
                     }
                 )}
