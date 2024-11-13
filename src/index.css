@@ -8,3 +8,18 @@
     @apply bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500;
   }
 }
+
+@layer utilities {
+  .text-shadow {
+    text-shadow:
+        2px 2px 0 #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        0 2px 0 #000,
+        2px 0 0 #000,
+        0 -2px 0 #000,
+        -2px 0 0 #000,
+        2px 2px 5px #000;
+  }
+}
