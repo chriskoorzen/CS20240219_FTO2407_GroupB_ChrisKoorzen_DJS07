@@ -50,20 +50,20 @@ export default function Meme() {
                 </label>
 
                 <button
+                    className="app-gradient p-4 rounded-lg text-white font-bold active:border-2 border-black active:shadow-lg"
                     onClick={generateMeme}
-                    className="app-gradient p-4 rounded-lg text-white font-bold active:border-2 border-black active:shadow-lg">
-                
+                >
                     Get a new meme image 🖼
                 </button>
             </div>
 
-            <div
-                className="relative size-64"
-                style={{ 
-                    backgroundImage: `url("${memeData[image].url}")` 
-                }}
-            >
-                {/* <img key={image} src={memeData[image].url}/> */}
+            <div className="relative w-fit h-fit">
+                <img 
+                    className="object-contain border-2 mx-auto"
+                    key={image} 
+                    src={memeData[image].url}
+                />
+
                 {textData.map(
                     memeText => {
                         return (
