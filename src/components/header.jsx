@@ -7,7 +7,7 @@ export default function Header() {
                 <img src={trollface} />
                 <h2 className="ml-3 font-bold text-xl">Meme Generator</h2>
             </div>
-            <h4 className="">React Course - Project 3</h4>
+            <h4 className="">CodeSpace Academy - Chris Koorzen - DJS 07</h4>
         </header>
     )
 }
