@@ -1,10 +1,11 @@
 import { useState, useRef } from "react"
 
 
-export default function MemeText({text, deleteFunction, getBoundary}){
+export default function MemeText({text, textSize, deleteFunction, getBoundary}){
     const offSet = 5
     const [position, setPosition] = useState({x:offSet, y:offSet})  // Default position at top left
     const deleteButton = useRef(null)                               // reference to DOM element to hide/show
+    const [memeTextSize] = useState(textSize)                       // Never changes
 
     let startX, startY, endX, endY                                  // Intermediary values to track movement
 
@@ -60,7 +61,7 @@ export default function MemeText({text, deleteFunction, getBoundary}){
             onMouseEnter={()=>{deleteButton.current.classList.toggle("hidden")}}
             onMouseLeave={()=>{deleteButton.current.classList.toggle("hidden")}}
         >
-            <pre className="uppercase text-shadow text-white font-semibold text-lg">
+            <pre className={`uppercase text-shadow text-white font-semibold ${memeTextSize}`}>
                 {text}
             </pre>
             <button 
