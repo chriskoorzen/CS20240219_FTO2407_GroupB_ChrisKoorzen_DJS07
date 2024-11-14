@@ -2,7 +2,7 @@ import { useState, useRef } from "react"
 
 
 export default function MemeText({text, textSize, deleteFunction, getBoundary}){
-    const offSet = 5
+    const offSet = 5                                                // Default px offset from image boundary
     const [position, setPosition] = useState({x:offSet, y:offSet})  // Default position at top left
     const deleteButton = useRef(null)                               // reference to DOM element to hide/show
     const [memeTextSize] = useState(textSize)                       // Never changes

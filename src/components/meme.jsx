@@ -4,10 +4,10 @@ import MemeText from './memeText.jsx'
 
 
 export default function Meme() {
-    const [image, setImage] = useState(0)                       // The default image number
+    const [imageIndex, setImageIndex] = useState(0)             // The default image index number
     const [memeData, setMemeData] = useState([{url:""}])        // The most basic object expected by <img src>
     const [textData, setTextData] = useState([])                // Meme texts
-    const memeBox = useRef(null)                                // MemeImage wrapper div
+    const memeBox = useRef(null)                                // MemeImage wrapper div (DOM Element)
     const [textSize, settextSize] = useState("text-xl")         // Meme Text size
 
     useEffect(() => {                                           // Retrieve meme data from remote source
@@ -16,17 +16,17 @@ export default function Meme() {
             .then(data => {
                 setMemeData(data.data.memes)
             })
-    }, [])  // Init once
+    }, [])                                                      // Init only once
 
 
-    function generateMeme(){
-        let randomImage = image             // Set to current image number
+    function getNewImage(){
+        let randomImage = imageIndex                            // Set to current image index
 
-        while (randomImage === image){      // Make sure random does not return the same image number
+        while (randomImage === imageIndex){                     // Make sure random does not return the same image index
             randomImage = Math.floor(Math.random() * memeData.length)
         }
 
-        setImage(randomImage)               // Set to new image (trigger re-render)
+        setImageIndex(randomImage)                              // Set to new image (trigger re-render)
     }
 
     function readUserInputText(event){
@@ -51,7 +51,7 @@ export default function Meme() {
     }
 
     function saveImage(){
-        domtoimage.toJpeg(memeBox.current, { quality: 0.95 })   // Use domtoimage to create image from DOM node
+        domtoimage.toJpeg(memeBox.current, { quality: 0.95 })   // Use domtoimage lib to create image from DOM node
         .then((dataUrl) => {
             const link = document.createElement('a');
             link.download = 'my-new-meme.jpeg';
@@ -122,9 +122,9 @@ export default function Meme() {
 
                 <button
                     className="self-start app-gradient p-4 rounded-lg text-white font-bold active:border-2 border-black active:shadow-lg"
-                    onClick={generateMeme}
+                    onClick={getNewImage}
                 >
-                    Get a new meme image 🖼
+                    Get a random meme image 🖼
                 </button>
             </div>
 
@@ -134,8 +134,8 @@ export default function Meme() {
             >
                 <img 
                     className="object-contain border-2 mx-auto"
-                    key={image} 
-                    src={memeData[image].url}
+                    key={imageIndex} 
+                    src={memeData[imageIndex].url}
                 />
 
                 {textData.map(
