@@ -68,15 +68,17 @@ export default function Meme() {
         <main className="w-4/5 mx-auto">
             <div className="grid grid-rows-3 gap-4 items-center">
                 
-                <label className="self-end">Meme Text
+                <div className="w-full flex flex-col mt-5">
+                    <label for="memetext" className="px-2">Enter your text pieces here:</label>
                     <input
+                        id="memetext"
                         type="text"
                         placeholder="Meme Text"
                         className="p-2 rounded-lg border-2 block w-full"
 
                         onKeyUp={readUserInputText}
                     />
-                </label>
+                </div>
 
                 <div className="flex flex-row justify-between items-center w-full">
                     <fieldset className="grid grid-cols-4 gap-x-2 rounded-lg border-2 border-gray-300 p-2">
