@@ -1,7 +1,7 @@
 {
-  "name": "cs20240219-fto2407-groupb-chriskoorzen-djs07",
+  "name": "ck-meme-generator",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
