@@ -9,18 +9,18 @@
 6. Hit "Save" to create and download your newly created meme!
 
 
-## Challenges
-**Moving MemeTexts into a custom place on the Image.**\
-Solved this by using the Draggable API of HTML5 and leveraging the CSS position, display properties.
-
-**Getting the right and bottom boundary of a changing meme image.**\
-Solved this by passing down a function to the children that can dynamically access these properties when needed. Necessary to keep the texts "bounded" on the image - the user should not be allowed to move the texts anywhere on the screen.
-
-**Keeping text size consistent after user changes their preference.**\
-Solved this by making it an unchanging state on the children MemeText element. This property is thus only set once and used in determining the resulting render.
-
-**Saving the completed image.**\
-To implement this functionality from scratch was going to take a lot of time. Luckily there was a library available for this.
-
 ## Notes
-**For coaches:** Navigate to ```/public``` to display the App.
+Built as part of a bootcamp project. Extended to allow various text sizes, allow user full control over text positioning and make image exportable to JPEG.
+
+## Examples
+
+#### Adding Text
+![adding text](examples/adding_text.png)
+![adding text](examples/adding_text2.png)
+
+#### Dragging Text into position
+![dragging text](examples/dragging_text.png)
+
+#### Finished Examples
+![finished example](examples/finished_example.png)
+![finished example](examples/finished_example2.png)
