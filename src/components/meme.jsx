@@ -112,7 +112,7 @@ export default function Meme() {
                         
                     </fieldset>
                     
-                    <button 
+                    <button
                         className="h-fit p-2 rounded-lg bg-green-700 text-white font-bold active:border-2 border-black active:shadow-lg"
                         onClick={saveImage}
                     >
@@ -128,31 +128,32 @@ export default function Meme() {
                 </button>
             </div>
 
-            <div 
-                className="relative w-fit h-fit"
-                ref={memeBox}
-            >
-                <img 
-                    className="object-contain border-2 mx-auto"
-                    key={imageIndex} 
-                    src={memeData[imageIndex].url}
-                />
+            <div className="w-full bg-gray-200 rounded">
+                <div
+                    className="relative w-fit h-fit mx-auto"
+                    ref={memeBox}
+                >
+                    <img 
+                        className="object-contain border-2 mx-auto"
+                        key={imageIndex} 
+                        src={memeData[imageIndex].url}
+                    />
 
-                {textData.map(
-                    memeText => {
-                        return (
-                            <MemeText 
-                                key={memeText}
-                                text={memeText}
-                                textSize={textSize}
-                                deleteFunction={deleteMemeText}
-                                getBoundary={getBoundary}
-                            />
-                        )
-                    }
-                )}
+                    {textData.map(
+                        memeText => {
+                            return (
+                                <MemeText 
+                                    key={memeText}
+                                    text={memeText}
+                                    textSize={textSize}
+                                    deleteFunction={deleteMemeText}
+                                    getBoundary={getBoundary}
+                                />
+                            )
+                        }
+                    )}
+                </div>
             </div>
-
         </main>
     )
 }
