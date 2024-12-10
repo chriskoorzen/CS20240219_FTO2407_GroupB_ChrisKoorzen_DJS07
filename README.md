@@ -1,5 +1,7 @@
 # DJS07 - Meme Generator
 
+Got a joke to tell? Need to convey a funny idea? Want to share your strange experiences? **Make a meme!**
+
 ## Using this App
 1. Get a random Meme image using the "Get a random meme image" button.
 2. Select your text size.
