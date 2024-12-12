@@ -16,6 +16,9 @@ Built as part of a bootcamp project. Extended to allow various text sizes, allow
 
 ## Examples
 
+#### Selecting Image
+![selecting image](examples/select_image.png)
+
 #### Adding Text
 ![adding text](examples/adding_text.png)
 ![adding text](examples/adding_text2.png)
