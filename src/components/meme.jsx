@@ -9,6 +9,7 @@ export default function Meme() {
     const [textData, setTextData] = useState([])                // Meme texts
     const memeBox = useRef(null)                                // MemeImage wrapper div (DOM Element)
     const [textSize, settextSize] = useState("text-xl")         // Meme Text size
+    const memeImages = useRef(null)                             // Dialog containing meme images
 
     useEffect(() => {                                           // Retrieve meme data from remote source
         fetch("https://api.imgflip.com/get_memes")
@@ -27,6 +28,10 @@ export default function Meme() {
         }
 
         setImageIndex(randomImage)                              // Set to new image (trigger re-render)
+    }
+
+    function setSelectedImage(index){                           // Allow user to set selected image
+        setImageIndex(index)
     }
 
     function readUserInputText(event){
@@ -122,12 +127,41 @@ export default function Meme() {
                     </button>
                 </div>
 
-                <button
-                    className="self-start app-gradient p-4 rounded-lg text-white font-bold active:border-2 border-black active:shadow-lg"
-                    onClick={getNewImage}
-                >
-                    Get a random meme image 🖼
-                </button>
+                <div className="flex flex-row w-full gap-5">
+                    <dialog
+                        ref={memeImages}
+                        onClick={()=>{memeImages.current.close()}}
+                        className="size-4/5 rounded-xl p-4 bg-gray-500 backdrop:bg-black/80"
+                    >
+                        <div className="flex flex-row flex-wrap gap-3">
+                            {memeData.map((image, index)=>{
+
+                                return (
+                                    <div key={image.id} className="size-48 p-2 bg-slate-300 rounded">
+                                        <img
+                                            className="object-contain size-full"
+                                            src={image.url}
+                                            alt={image.name}
+                                            onClick={()=>{setSelectedImage(index)}}
+                                        />
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </dialog>
+                    <button
+                        className="grow app-gradient p-4 rounded-lg text-white font-bold active:ring-2 active:shadow-lg"
+                        onClick={()=>{memeImages.current.showModal()}}
+                    >
+                        Select a Meme Image
+                    </button>
+                    <button
+                        className="grow app-gradient p-4 rounded-lg text-white font-bold active:ring-2 active:shadow-lg"
+                        onClick={getNewImage}
+                    >
+                        Get a random meme image 🖼
+                    </button>
+                </div>
             </div>
 
             <div className="w-full bg-gray-200 rounded">
